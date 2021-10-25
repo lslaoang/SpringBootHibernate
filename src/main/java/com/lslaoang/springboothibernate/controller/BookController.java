@@ -2,15 +2,12 @@ package com.lslaoang.springboothibernate.controller;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.repository.BookRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/repo")
 public class BookController {
 
     private final BookRepository bookRepository;
@@ -19,16 +16,21 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @RequestMapping({"/"})
+    @RequestMapping({"/books"})
     public List<Book> getAllBooks(){
         List<Book> listOfBooks =  bookRepository.findAll();
         return listOfBooks;
     }
 
-    @GetMapping("/{bookId}")
+    @GetMapping("books/{bookId}")
     public Book getBookById(@PathVariable("bookId") Long id){
         //System.out.println("Book repository ID");
-         Book thisBook =   bookRepository.getById(id);
-         return thisBook;
+         return bookRepository.getById(id);
+    }
+
+    @DeleteMapping("books/delete/{bookId}")
+    public String deleteById(@PathVariable("bookId") Long id){
+        bookRepository.deleteById(id);
+        return "Book "+id +" deleted.";
     }
 }
