@@ -1,12 +1,16 @@
 package com.lslaoang.springboothibernate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"}) //to SKIP serialize
 @Entity
-public class Book {
+public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
