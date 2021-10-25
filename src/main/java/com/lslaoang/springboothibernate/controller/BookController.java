@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/v1",method = {RequestMethod.GET, RequestMethod.POST,RequestMethod.DELETE})
-public class BookController {
+public class BookController{
 
     private final BookRepository bookRepository;
 
@@ -28,10 +28,12 @@ public class BookController {
          return bookRepository.getById(id);
     }
 
-    @RequestMapping(value ="/{bookId}",method = RequestMethod.DELETE)
-    public String deleteById(@PathVariable("bookId") Long id){
-        bookRepository.getById(id);
+    @DeleteMapping(value ="/delete/{bookId}")
+    public List<Book> deleteById(@PathVariable("bookId") Long id){
+        bookRepository.deleteById(id);
         System.out.println("Deleted");
-        return "Book "+id +" deleted.";
+        List<Book> newList = bookRepository.findAll();
+        return newList;
     }
+
 }
