@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/repo")
+@RequestMapping(value = "/v1",method = {RequestMethod.GET, RequestMethod.POST,RequestMethod.DELETE})
 public class BookController {
 
     private final BookRepository bookRepository;
@@ -16,21 +16,22 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @RequestMapping({"/books"})
+    @RequestMapping(value="/books")
     public List<Book> getAllBooks(){
         List<Book> listOfBooks =  bookRepository.findAll();
         return listOfBooks;
     }
 
-    @GetMapping("books/{bookId}")
+    @GetMapping(value="/book/{bookId}")
     public Book getBookById(@PathVariable("bookId") Long id){
         //System.out.println("Book repository ID");
          return bookRepository.getById(id);
     }
 
-    @DeleteMapping("books/delete/{bookId}")
+    @RequestMapping(value ="/{bookId}",method = RequestMethod.DELETE)
     public String deleteById(@PathVariable("bookId") Long id){
-        bookRepository.deleteById(id);
+        bookRepository.getById(id);
+        System.out.println("Deleted");
         return "Book "+id +" deleted.";
     }
 }
