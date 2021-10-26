@@ -2,6 +2,7 @@ package com.lslaoang.springboothibernate.controller;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.repository.BookRepository;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,11 +30,31 @@ public class BookController{
     }
 
     @DeleteMapping(value ="/delete/{bookId}")
-    public List<Book> deleteById(@PathVariable("bookId") Long id){
-        bookRepository.deleteById(id);
-        System.out.println("Deleted");
-        List<Book> newList = bookRepository.findAll();
-        return newList;
+    public String deleteById(@PathVariable("bookId") Long id){
+        String status = null;
+
+        if(bookRepository.getById(id).getId() == id){
+            bookRepository.deleteById(id);
+            status = "Deleted "+id;
+        }
+        else{
+            status = "Cannot find "+id ;
+        }
+
+        return status;
+    }
+
+    @RequestMapping("/error")
+    public class CustomErrorHandler implements ErrorController {
+
+        public String error() {
+            return "error";
+        }
+
+        public String getErrorPath(){
+            return "error";
+        }
+
     }
 
 }
