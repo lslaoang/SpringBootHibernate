@@ -2,7 +2,6 @@ package com.lslaoang.springboothibernate.controller;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.repository.BookRepository;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class BookController{
         this.bookRepository = bookRepository;
     }
 
-    @RequestMapping(value="/books")
+    @GetMapping(value="/books")
     public List<Book> getAllBooks(){
         List<Book> listOfBooks =  bookRepository.findAll();
         return listOfBooks;
@@ -44,17 +43,8 @@ public class BookController{
         return status;
     }
 
-    @RequestMapping("/error")
-    public class CustomErrorHandler implements ErrorController {
-
-        public String error() {
+    @GetMapping("/error")
+    public String error() {
             return "error";
         }
-
-        public String getErrorPath(){
-            return "error";
-        }
-
-    }
-
 }
