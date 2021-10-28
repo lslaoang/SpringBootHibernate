@@ -2,6 +2,7 @@ package com.lslaoang.springboothibernate.controller;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.repository.BookRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +30,17 @@ public class BookController{
     }
 
     @DeleteMapping(value ="/delete/{bookId}")
-    public String deleteById(@PathVariable("bookId") Long id){
+    public String deleteById(@PathVariable("bookId") @NonNull Long id) {
         String status = null;
 
-        if(bookRepository.getById(id).getId() == id){
-            bookRepository.deleteById(id);
-            status = "Deleted "+id;
-        }
-        else{
-            status = "Cannot find "+id ;
-        }
+     if (bookRepository.getById(id).getId() == id) {
+                bookRepository.deleteById(id);
+                status = "Deleted " + id;
+            } else {
+                status = "Cannot find " + id;
+            }
 
-        return status;
+            return status;
     }
 
     @GetMapping("/error")
