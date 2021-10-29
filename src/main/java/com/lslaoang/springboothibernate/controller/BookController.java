@@ -2,6 +2,7 @@ package com.lslaoang.springboothibernate.controller;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.repository.BookRepository;
+import com.lslaoang.springboothibernate.service.BookService;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,35 +13,37 @@ import java.util.List;
 public class BookController{
 
     private final BookRepository bookRepository;
+    private final BookService bookService;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, BookService bookService) {
         this.bookRepository = bookRepository;
+        this.bookService = bookService;
     }
 
     @GetMapping(value="/books")
     public List<Book> getAllBooks(){
-        List<Book> listOfBooks =  bookRepository.findAll();
+        List<Book> listOfBooks =  bookService.findAll();
         return listOfBooks;
     }
 
     @GetMapping(value="/book/{bookId}")
     public Book getBookById(@PathVariable("bookId") Long id){
         //System.out.println("Book repository ID");
-         return bookRepository.getById(id);
+         return bookService.getById(id);
     }
 
     @DeleteMapping(value ="/delete/{bookId}")
     public String deleteById(@PathVariable("bookId") @NonNull Long id) {
         String status = null;
 
-     if (bookRepository.getById(id).getId() == id) {
-                bookRepository.deleteById(id);
+     if (bookService.getById(id).getId() == id) {
+                bookService.deleteById(id);
                 status = "Deleted " + id;
             } else {
                 status = "Cannot find " + id;
             }
 
-            return status;
+            return "error";
     }
 
     @GetMapping("/error")
