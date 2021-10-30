@@ -1,7 +1,6 @@
 package com.lslaoang.springboothibernate.controller;
 
 import com.lslaoang.springboothibernate.model.Book;
-import com.lslaoang.springboothibernate.repository.BookRepository;
 import com.lslaoang.springboothibernate.service.BookService;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +11,10 @@ import java.util.List;
 @RequestMapping(value = "/v1",method = {RequestMethod.GET, RequestMethod.POST,RequestMethod.DELETE})
 public class BookController{
 
-    private final BookRepository bookRepository;
+
     private final BookService bookService;
 
-    public BookController(BookRepository bookRepository, BookService bookService) {
-        this.bookRepository = bookRepository;
+    public BookController( BookService bookService) {
         this.bookService = bookService;
     }
 
