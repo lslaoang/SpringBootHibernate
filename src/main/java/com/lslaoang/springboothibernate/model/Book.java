@@ -11,6 +11,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"hibernateLazyInitializer"}) //to SKIP serialize
 @Entity
 public class Book implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
