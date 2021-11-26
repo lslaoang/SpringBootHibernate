@@ -1,13 +1,10 @@
 package com.lslaoang.springboothibernate.bootstrap;
 
 import com.lslaoang.springboothibernate.model.Book;
+import com.lslaoang.springboothibernate.model.Genre;
 import com.lslaoang.springboothibernate.service.BookService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -23,8 +20,9 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Book historyBook = new Book();
 
-        //historyBook.setId(11L);
+        historyBook.setId(11L);
         historyBook.setName("Hekasi");
+        historyBook.setGenre(Genre.HISTORY);
         bookService.save(historyBook);
     }
 }

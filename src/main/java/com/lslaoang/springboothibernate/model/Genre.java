@@ -4,7 +4,7 @@ public enum Genre {
     HISTORY,
     RECORDS,
     SCIENCE,
-    ARTS,
+    LITERATURE,
     MATH,
     LANGUAGE,
     ENTERTAINMENT

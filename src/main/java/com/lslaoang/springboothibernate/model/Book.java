@@ -2,7 +2,6 @@ package com.lslaoang.springboothibernate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -17,7 +16,7 @@ import javax.persistence.*;
 public class Book{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "id")
     @NonNull
     private Long id;
@@ -26,8 +25,8 @@ public class Book{
     @Column(name = "name")
     private String name;
 
-    @Nullable
     @Column(name = "genre")
+    @Enumerated(EnumType.STRING)
     private Genre genre;
 
     @Override
