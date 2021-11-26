@@ -41,8 +41,7 @@ public class BookController{
             } else {
                 status = "Cannot find " + id;
             }
-
-            return "error";
+            return status;
     }
 
     @GetMapping("/error")
