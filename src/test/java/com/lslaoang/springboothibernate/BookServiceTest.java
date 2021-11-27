@@ -1,46 +1,48 @@
 package com.lslaoang.springboothibernate;
 
 import com.lslaoang.springboothibernate.model.Book;
+import com.lslaoang.springboothibernate.repository.BookRepository;
 import com.lslaoang.springboothibernate.service.BookService;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BookServiceTest {
 
-    @Mock
+    @InjectMocks
     BookService bookService;
 
-    Book  book = new Book();
+    @Mock
+    BookRepository bookRepository;
 
-    @Commit
-    @BeforeEach
-    @Test
-    public void init(){
-
-        book.setId(1L);
-        book.setName("NO GENRE");
-        bookService.save(book);
-    }
 
     @Test
     public void shouldSetUndefinedAsGenreIfNotSpecified(){
-
-        book.setId(2L);
-        book.setName("NO GENRE");
+        Book book = new Book();
+        book.setId(1L);
+        book.setName("HAS NO GENRE");
         bookService.save(book);
 
-        System.out.println(bookService.getById(1L));
-        System.out.println(bookService.getById(2L));
+        Book book1 = new Book();
+        book1.setId(1L);
+        book1.setName("HAS NO GENRE");
+        bookService.save(book1);
 
-        //TODO: Create mock bean
-        //assertSame(book1.getGenre(), Genre.UNDEFINED);
+        //doReturn(book).when(bookService).getById(1L);
+
+        verify(bookRepository,times(2)).save(any());
+
     }
+
+
 }
