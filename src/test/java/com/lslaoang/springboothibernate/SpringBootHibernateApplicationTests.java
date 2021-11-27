@@ -2,7 +2,7 @@ package com.lslaoang.springboothibernate;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.model.Genre;
-import com.lslaoang.springboothibernate.repository.BookRepository;
+import com.lslaoang.springboothibernate.service.BookService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SpringBootHibernateApplicationTests {
 
     @Autowired
-    private BookRepository bookService;
+    private BookService bookService;
 
     Book mockBook = Mockito.mock(Book.class);
 
@@ -83,7 +83,11 @@ class SpringBootHibernateApplicationTests {
     @Test
     @Order(5)
     public void shouldSetUndefinedAsGenreIfNotSpecified(){
-        mockBook.setId(4l);
+        Book mockBook = Mockito.mock(Book.class);
+
+        BookService bookService = new BookService();
+
+        mockBook.setId(4L);
         mockBook.setName("NO GENRE");
 
         bookService.save(mockBook);
