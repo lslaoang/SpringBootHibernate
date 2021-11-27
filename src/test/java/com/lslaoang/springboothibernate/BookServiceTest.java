@@ -40,6 +40,7 @@ public class BookServiceTest {
         System.out.println(bookService.getById(1L));
         System.out.println(bookService.getById(2L));
 
+        //TODO: Create mock bean
         //assertSame(book1.getGenre(), Genre.UNDEFINED);
     }
 }
