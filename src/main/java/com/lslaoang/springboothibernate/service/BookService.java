@@ -3,7 +3,6 @@ package com.lslaoang.springboothibernate.service;
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.model.Genre;
 import com.lslaoang.springboothibernate.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,16 @@ import java.util.Optional;
 @Service
 public class BookService{
 
-    @Autowired
+
     private BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    public BookService(){
+        //empty constructor
+    }
 
     public List<Book> findAll(){
         return bookRepository.findAll();
