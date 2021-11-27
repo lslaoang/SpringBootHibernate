@@ -5,8 +5,8 @@ import com.lslaoang.springboothibernate.service.BookService;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class BookServiceTest {
 
-    @MockBean
+    @Mock
     BookService bookService;
 
     Book  book = new Book();
@@ -31,7 +31,6 @@ public class BookServiceTest {
     }
 
     @Test
-    @Commit
     public void shouldSetUndefinedAsGenreIfNotSpecified(){
 
         book.setId(2L);
