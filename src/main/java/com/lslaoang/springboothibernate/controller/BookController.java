@@ -2,6 +2,7 @@ package com.lslaoang.springboothibernate.controller;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class BookController{
 
 
+    @Autowired
     private final BookService bookService;
 
     public BookController( BookService bookService) {

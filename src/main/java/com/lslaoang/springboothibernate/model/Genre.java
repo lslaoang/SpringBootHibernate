@@ -7,5 +7,6 @@ public enum Genre {
     LITERATURE,
     MATH,
     LANGUAGE,
-    ENTERTAINMENT
+    ENTERTAINMENT,
+    UNDEFINED
 }

@@ -2,7 +2,7 @@ package com.lslaoang.springboothibernate;
 
 import com.lslaoang.springboothibernate.model.Book;
 import com.lslaoang.springboothibernate.model.Genre;
-import com.lslaoang.springboothibernate.service.BookService;
+import com.lslaoang.springboothibernate.repository.BookRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SpringBootHibernateApplicationTests {
 
     @Autowired
-    private BookService bookService;
+    private BookRepository bookRepository;
 
     Book mockBook = Mockito.mock(Book.class);
 
@@ -35,8 +35,8 @@ class SpringBootHibernateApplicationTests {
     public void shouldSaveBook(){
 
         Book book1 = new Book(1L, "TestBook", Genre.ENTERTAINMENT);
-        bookService.save(book1);
-        Book book2 = bookService.getById(1L);
+        bookRepository.save(book1);
+        Book book2 = bookRepository.getById(1L);
         assertNotNull(book2);
         assertEquals(book2.getName(),book1.getName());
     }
@@ -46,11 +46,11 @@ class SpringBootHibernateApplicationTests {
     @Commit
     public void shouldFindBook(){
         mockBook = new Book(2L, "TestBook1", Genre.ENTERTAINMENT);
-        bookService.save(mockBook);
+        bookRepository.save(mockBook);
 
-        System.out.println(bookService.findById(2L));
-        System.out.println(bookService.count());
-        assertNotNull(bookService.findById(2L));
+        System.out.println(bookRepository.findById(2L));
+        System.out.println(bookRepository.count());
+        assertNotNull(bookRepository.findById(2L));
     }
 
     @Test
@@ -59,12 +59,12 @@ class SpringBootHibernateApplicationTests {
 
         try {
             Book book1 = new Book(1L, "TestBook", Genre.ENTERTAINMENT);
-            bookService.save(book1);
+            bookRepository.save(book1);
 
-            bookService.deleteById(1L);
+            bookRepository.deleteById(1L);
             System.out.println("Book deleted");
             assertThrows(JpaObjectRetrievalFailureException.class, ()->{
-                bookService.getById(1L);
+                bookRepository.getById(1L);
             });
         } catch (EmptyResultDataAccessException e){
             System.out.println("Error occured.");
@@ -80,19 +80,6 @@ class SpringBootHibernateApplicationTests {
                 });
     }
 
-    @Test
-    @Order(5)
-    public void shouldSetUndefinedAsGenreIfNotSpecified(){
-        Book mockBook = Mockito.mock(Book.class);
 
-        BookService bookService = new BookService();
-
-        mockBook.setId(4L);
-        mockBook.setName("NO GENRE");
-
-        bookService.save(mockBook);
-        assertNotNull(mockBook.getGenre());
-        assertEquals(mockBook.getGenre().toString(),"UNDEFINED");
-    }
 
 }
