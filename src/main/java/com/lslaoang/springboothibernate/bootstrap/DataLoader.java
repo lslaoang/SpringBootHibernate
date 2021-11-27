@@ -1,7 +1,6 @@
 package com.lslaoang.springboothibernate.bootstrap;
 
 import com.lslaoang.springboothibernate.model.Book;
-import com.lslaoang.springboothibernate.model.Genre;
 import com.lslaoang.springboothibernate.service.BookService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,7 +21,7 @@ public class DataLoader implements CommandLineRunner {
 
         historyBook.setId(11L);
         historyBook.setName("Hekasi");
-        historyBook.setGenre(Genre.HISTORY);
+       // historyBook.setGenre(Genre.HISTORY);
         bookService.save(historyBook);
     }
 }

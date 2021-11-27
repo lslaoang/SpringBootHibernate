@@ -29,8 +29,6 @@ class SpringBootHibernateApplicationTests {
 
     Book mockBook = Mockito.mock(Book.class);
 
-
-
     @Test
     @Order(1)
     @Commit
@@ -41,7 +39,6 @@ class SpringBootHibernateApplicationTests {
         Book book2 = bookService.getById(1L);
         assertNotNull(book2);
         assertEquals(book2.getName(),book1.getName());
-
     }
 
     @Test
@@ -59,7 +56,6 @@ class SpringBootHibernateApplicationTests {
     @Test
     @Order(3)
     public void shouldDeleteBook() throws EmptyResultDataAccessException {
-
 
         try {
             Book book1 = new Book(1L, "TestBook", Genre.ENTERTAINMENT);
@@ -82,9 +78,17 @@ class SpringBootHibernateApplicationTests {
         assertThrows(NullPointerException.class, () ->{
             mockBook = new Book(null,"NullBook",Genre.HISTORY);
                 });
-
     }
 
+    @Test
+    @Order(5)
+    public void shouldSetUndefinedAsGenreIfNotSpecified(){
+        mockBook.setId(4l);
+        mockBook.setName("NO GENRE");
 
+        bookService.save(mockBook);
+        assertNotNull(mockBook.getGenre());
+        assertEquals(mockBook.getGenre().toString(),"UNDEFINED");
+    }
 
 }
